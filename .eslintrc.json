@@ -1,35 +1,51 @@
 {
-  "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
-    }
-  ]
+	"root": true,
+	"ignorePatterns": ["**/*"],
+	"plugins": ["@nrwl/nx", "@typescript-eslint/eslint-plugin"],
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+			"rules": {
+				"@nrwl/nx/enforce-module-boundaries": [
+					"error",
+					{
+						"enforceBuildableLibDependency": true,
+						"allow": [],
+						"depConstraints": [
+							{
+								"sourceTag": "*",
+								"onlyDependOnLibsWithTags": ["*"]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": ["*.ts", "*.tsx"],
+			"extends": ["plugin:@nrwl/nx/typescript", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+			"rules": {
+				"@typescript-eslint/explicit-function-return-type": "warn",
+				"prettier/prettier": [
+					"error",
+					{
+						"tabWidth": 2,
+						"useTabs": true,
+						"semi": true,
+						"singleQuote": true,
+						"trailingComma": "all",
+						"bracketSpacing": true,
+						"arrowParens": "avoid",
+						"printWidth": 120,
+						"endOfLine": "auto"
+					}
+				]
+			}
+		},
+		{
+			"files": ["*.js", "*.jsx"],
+			"extends": ["plugin:@nrwl/nx/javascript"],
+			"rules": {}
+		}
+	]
 }
